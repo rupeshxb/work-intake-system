@@ -1,3 +1,4 @@
+# Smoke test: verifies the health check endpoint returns 200 and correct payload.
 from rest_framework.test import APIClient
 
 

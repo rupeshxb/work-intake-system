@@ -1,3 +1,4 @@
+# Pure domain logic: work item status enum, allowed state transitions, and transition enforcement. No Django imports.
 from enum import Enum
 
 

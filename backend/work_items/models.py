@@ -1,3 +1,4 @@
+# Database models: WorkItem (the main record) and AnalysisAttempt (one row per LLM call).
 import uuid
 
 from django.db import models

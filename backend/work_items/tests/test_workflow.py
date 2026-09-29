@@ -1,3 +1,4 @@
+# Tests for the pure domain state machine — no database required.
 import pytest
 
 from work_items.domain.workflow import (
