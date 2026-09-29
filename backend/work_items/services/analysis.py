@@ -6,7 +6,7 @@ from django.conf import settings
 from django.db.models import F
 from django.utils import timezone
 
-from work_items.ai.providers import GeminiProvider, MockProvider
+from work_items.ai.providers import GeminiProvider, GroqProvider, MockProvider
 from work_items.ai.schema import AnalysisResult
 from work_items.domain.workflow import TransitionError
 from work_items.models import AnalysisAttempt, WorkItem
@@ -29,6 +29,8 @@ class AnalysisService:
         if provider is None:
             if settings.LLM_PROVIDER == "gemini":
                 provider = GeminiProvider()
+            elif settings.LLM_PROVIDER == "groq":
+                provider = GroqProvider()
             else:
                 provider = MockProvider(mode="success")
 
