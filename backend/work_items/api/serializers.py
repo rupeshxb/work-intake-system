@@ -1,7 +1,8 @@
-# DRF serializers: validates incoming work item payloads and shapes outgoing responses including allowedActions.
+# DRF serializers: validates incoming work item payloads and shapes outgoing responses including allowedActions and attempts.
 from rest_framework import serializers
 
 from work_items.domain.workflow import WorkItemStatus
+from work_items.models import AnalysisAttempt
 
 ALLOWED_ACTIONS_BY_STATUS = {
     WorkItemStatus.RECEIVED.value: ["analyse"],
@@ -23,6 +24,12 @@ class WorkItemCreateSerializer(serializers.Serializer):
         return value
 
 
+class WorkItemAnalysisAttemptSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AnalysisAttempt
+        fields = ["attempt_number", "status", "error", "latency_ms", "created_at"]
+
+
 class WorkItemResponseSerializer(serializers.Serializer):
     id = serializers.UUIDField()
     externalId = serializers.CharField(source="external_id")
@@ -32,6 +39,7 @@ class WorkItemResponseSerializer(serializers.Serializer):
     analysis = serializers.JSONField()
     failureReason = serializers.CharField(source="failure_reason")
     allowedActions = serializers.SerializerMethodField()
+    attempts = WorkItemAnalysisAttemptSerializer(many=True, source="attempts.all", read_only=True)
     createdAt = serializers.DateTimeField(source="created_at")
     updatedAt = serializers.DateTimeField(source="updated_at")
 
