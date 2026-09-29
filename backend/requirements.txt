@@ -1,0 +1,11 @@
+django
+djangorestframework
+psycopg[binary]
+dj-database-url
+django-cors-headers
+pydantic
+httpx
+pytest
+pytest-django
+pytest-xdist
+python-dotenv   
