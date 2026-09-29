@@ -16,3 +16,9 @@ Django + DRF for backend
 React + TypeScript + Redux Toolkit for frontend.
 Gemini Flash for LLM (free tier, no credit card, same interface pattern
 means swapping to another provider is one env variable change).
+
+## 004 - Pure domain layer with no Django imports
+The state machine lives in domain/workflow.py with zero Django imports.
+This means transition logic can be tested without a database or environment
+variables. Tests run in milliseconds anywhere. The domain layer is also
+reusable from a Celery worker or CLI without pulling in the full Django stack.
