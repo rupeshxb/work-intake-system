@@ -167,3 +167,8 @@ any custom domain), `CORS_ALLOWED_ORIGINS` (your Vercel frontend URL), `LLM_PROV
 `LLM_API_KEY` as real environment variables in the Koyeb service — these override the placeholder
 values baked into the image for `collectstatic` at build time. Koyeb provides `$PORT` at runtime,
 which the Dockerfile's `CMD` already binds to.
+
+## Live Demo
+- Frontend: https://work-intake-system.vercel.app
+- Backend API: https://work-intake-system.up.railway.app/api
+- Health check: https://work-intake-system.up.railway.app/api/health/
