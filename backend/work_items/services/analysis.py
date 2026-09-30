@@ -27,10 +27,10 @@ class AnalysisService:
         work_item.refresh_from_db()
 
         if provider is None:
-            if settings.LLM_PROVIDER == "gemini":
-                provider = GeminiProvider()
-            elif settings.LLM_PROVIDER == "groq":
+            if settings.LLM_PROVIDER == "groq":
                 provider = GroqProvider()
+            elif settings.LLM_PROVIDER == "gemini":
+                provider = GeminiProvider()
             else:
                 provider = MockProvider(mode="success")
 

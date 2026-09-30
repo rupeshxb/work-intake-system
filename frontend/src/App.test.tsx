@@ -1,16 +1,33 @@
 import { render, screen } from '@testing-library/react'
 import { Provider } from 'react-redux'
-import { describe, expect, it } from 'vitest'
+import { MemoryRouter } from 'react-router-dom'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 import App from './App'
 import { store } from './store'
 
 describe('App', () => {
+  beforeEach(() => {
+    vi.stubGlobal(
+      'fetch',
+      vi.fn(() =>
+        Promise.resolve(
+          new Response(JSON.stringify({ count: 0, next: null, previous: null, results: [] }), {
+            status: 200,
+            headers: { 'Content-Type': 'application/json' },
+          }),
+        ),
+      ),
+    )
+  })
+
   it('renders without crashing', () => {
     render(
       <Provider store={store}>
-        <App />
+        <MemoryRouter>
+          <App />
+        </MemoryRouter>
       </Provider>,
     )
-    expect(screen.getByText(/get started/i)).toBeInTheDocument()
+    expect(screen.getByText('Work Intake')).toBeInTheDocument()
   })
 })
