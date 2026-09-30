@@ -9,3 +9,5 @@ pytest
 pytest-django
 pytest-xdist
 python-dotenv   
+gunicorn
+whitenoise

@@ -89,7 +89,7 @@ call it.
 Create a work item:
 
 ```bash
-curl -X POST https://your-backend.onrender.com/api/work-items/ \
+curl -X POST https://your-backend.koyeb.app/api/work-items/ \
   -H "Content-Type: application/json" \
   -d '{"externalId":"CRM-100","title":"Missing payslip","description":"Client hasn'\''t uploaded latest payslip"}'
 ```
@@ -157,5 +157,13 @@ Both return `201 Created` for a new `externalId`, `200 OK` if the same
 ## Deployment
 
 - Frontend → Vercel
-- Backend → Render
+- Backend → Koyeb (built from `backend/Dockerfile`)
 - Database → Neon
+
+On Koyeb, deploy the `backend/` directory as a Docker-based service (Koyeb builds and runs
+`backend/Dockerfile` directly). Set `DJANGO_SECRET_KEY`, `DATABASE_URL` (your Neon connection
+string), `DJANGO_DEBUG=False`, `ALLOWED_HOSTS` (your `*.koyeb.app` domain, comma-separated with
+any custom domain), `CORS_ALLOWED_ORIGINS` (your Vercel frontend URL), `LLM_PROVIDER`, and
+`LLM_API_KEY` as real environment variables in the Koyeb service — these override the placeholder
+values baked into the image for `collectstatic` at build time. Koyeb provides `$PORT` at runtime,
+which the Dockerfile's `CMD` already binds to.
