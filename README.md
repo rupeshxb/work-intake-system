@@ -116,6 +116,22 @@ each concern can change independently; see [docs/DECISIONS.md](docs/DECISIONS.md
 
    The app is served at `http://localhost:5173`.
 
+### Running the backend in Docker
+
+As an alternative to the manual venv steps above (step 3), `docker compose` builds and runs the
+backend and Postgres together, using `backend/Dockerfile`:
+
+```bash
+docker compose up --build
+```
+
+The API is served at `http://localhost:8000/api/`. To run the backend test suite inside the same
+container setup:
+
+```bash
+docker compose run --rm backend pytest
+```
+
 ### Switching LLM provider
 
 Set `LLM_PROVIDER` in `.env` to `gemini` or `groq`, and set `LLM_API_KEY` to a matching key for
